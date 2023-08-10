@@ -13,6 +13,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{C6539E18-2B87-4DE9-B78B-D2D65A8FC162}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\build-c2434.yaml = .github\workflows\build-c2434.yaml
+		.github\workflows\tempstick-dash.yml = .github\workflows\tempstick-dash.yml
 	EndProjectSection
 EndProject
 Global
