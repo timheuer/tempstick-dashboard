@@ -1,0 +1,25 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider/>
+<PageTitle>Dashboard</PageTitle>
+
+<div class="page">
+    <main>
+
+        <div class="top-row px-4">
+            <MudAppBar Color="Color.Primary">
+                <MudText Typo="Typo.h5" Class="ml-3">            
+                    <SectionOutlet SectionName="AppBarTitle" />
+                    <SectionContent SectionName="AppBarTitle">Dashboard</SectionContent>
+                </MudText>
+                <MudSpacer/>
+                <MudIconButton Target="_blank" Title="Repo for this Dashboard" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Edge="Edge.End" Href="https://github.com/timheuer/tempstick-dashboard"/>
+                <MudIconButton Target="_blank" Title="Use TempStick# and create your own!" Icon="@Icons.Material.Filled.Thermostat" Color="Color.Inherit" Edge="Edge.End" Href="https://github.com/timheuer/tempstick-sharp"/>
+            </MudAppBar>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>

@@ -1,0 +1,315 @@
+﻿@page "/"
+@using TempStick;
+@inject IConfiguration Configuration
+@implements IDisposable
+@inject PersistentComponentState ApplicationState
+
+<PageTitle>Dashboard - @mySensor?.SensorName</PageTitle>
+<SectionContent SectionName="AppBarTitle">@mySensor?.SensorName</SectionContent>
+<div>
+    @if (mySensor != null)
+    {
+        <MudContainer MaxWidth="MaxWidth.ExtraLarge">
+            <MudGrid>
+                <MudItem xs="12" sm="4">
+                    <MudCard>
+                        <MudCardHeader Style="background-color:red;color:white">
+                            <CardHeaderContent>
+                                <MudText Style="font-weight:bold" Typo="Typo.h6" Align="Align.Center">
+                                    <MudIcon Icon="@Icons.Material.Filled.Thermostat" /> TEMPERATURE
+                                </MudText>
+                            </CardHeaderContent>
+                        </MudCardHeader>
+                        <MudCardContent Style="background-color:#444;color:white">
+                            <MudGrid>
+                                <MudItem xs="6">
+                                    <MudGrid>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.subtitle2" Style="font-weight:bold;color:#c8c8c8">LAST READING</MudText>
+                                        </MudItem>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.h5">@mySensor.LastTemperature.ToFarenheitDisplay()</MudText>
+                                        </MudItem>
+                                    </MudGrid>
+                                </MudItem>
+                                <MudItem xs="6">
+                                    <MudText Align="Align.Center" Typo="Typo.subtitle1">@mySensor.LastCheckin.DisplayDate()<br />@mySensor.LastCheckin.DisplayTime()</MudText>
+                                </MudItem>
+                                <MudItem xs="4">
+                                    <MudGrid>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.subtitle2" Style="font-weight:bold;color:#c8c8c8">HIGH</MudText>
+                                        </MudItem>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.h5">@($"{Math.Round(_highTemp,1)}⁰F")</MudText>
+                                        </MudItem>
+                                    </MudGrid>
+                                </MudItem>
+                                <MudItem xs="4">
+                                    <MudGrid>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.subtitle2" Style="font-weight:bold;color:#c8c8c8">LOW</MudText>
+                                        </MudItem>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.h5">@($"{Math.Round(_lowTemp,1)}⁰F")</MudText>
+                                        </MudItem>
+                                    </MudGrid>
+                                </MudItem>
+                                <MudItem xs="4">
+                                    <MudGrid>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.subtitle2" Style="font-weight:bold;color:#c8c8c8">AVG</MudText>
+                                        </MudItem>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.h5">@($"{Math.Round(_avgTemp,1)}⁰F")</MudText>
+                                        </MudItem>
+                                    </MudGrid>
+                                </MudItem>
+                            </MudGrid>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="12" sm="4">
+                    <MudCard>
+                        <MudCardHeader Style="background-color:dodgerblue;color:white">
+                            <CardHeaderContent>
+                                <MudText Style="font-weight:bold" Typo="Typo.h6" Align="Align.Center">
+                                    <MudIcon Icon="@Icons.Material.Filled.WaterDrop" /> HUMIDITY
+                                </MudText>
+                            </CardHeaderContent>
+                        </MudCardHeader>
+                        <MudCardContent Style="background-color:#444;color:white">
+                            <MudGrid>
+                                <MudItem xs="6">
+                                    <MudGrid>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.subtitle2" Style="font-weight:bold;color:#c8c8c8">LAST READING</MudText>
+                                        </MudItem>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.h5">@mySensor.LastHumidity.ToHumidityDisplay()</MudText>
+                                        </MudItem>
+                                    </MudGrid>
+                                </MudItem>
+                                <MudItem xs="6">
+                                    <MudText Align="Align.Center" Typo="Typo.subtitle1">@mySensor.LastCheckin.DisplayDate()<br />@mySensor.LastCheckin.DisplayTime()</MudText>
+                                </MudItem>
+                                <MudItem xs="4">
+                                    <MudGrid>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.subtitle2" Style="font-weight:bold;color:#c8c8c8">HIGH</MudText>
+                                        </MudItem>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.h5">@($"{Math.Round(_highHumid,1)}%")</MudText>
+                                        </MudItem>
+                                    </MudGrid>
+                                </MudItem>
+                                <MudItem xs="4">
+                                    <MudGrid>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.subtitle2" Style="font-weight:bold;color:#c8c8c8">LOW</MudText>
+                                        </MudItem>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.h5">@($"{Math.Round(_lowHumid,1)}%")</MudText>
+                                        </MudItem>
+                                    </MudGrid>
+                                </MudItem>
+                                <MudItem xs="4">
+                                    <MudGrid>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.subtitle2" Style="font-weight:bold;color:#c8c8c8">AVG</MudText>
+                                        </MudItem>
+                                        <MudItem xs="12">
+                                            <MudText Align="Align.Center" Typo="Typo.h5">@($"{Math.Round(_avgHumid,1)}%")</MudText>
+                                        </MudItem>
+                                    </MudGrid>
+                                </MudItem>
+                            </MudGrid>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="12" sm="4">
+                    <MudCard>
+                        <MudCardHeader Style="background-color: green;color:white">
+                            <CardHeaderContent>
+                                <MudText Style="font-weight:bold" Typo="Typo.h6" Align="Align.Center">
+                                    <MudIcon Icon="@Icons.Material.Filled.Wifi" /> SENSOR DETAILS
+                                </MudText>
+                            </CardHeaderContent>
+                        </MudCardHeader>
+                        <MudCardContent Style="background-color:#444;color:white">
+                            <MudGrid>
+                                <MudItem xs="6">Sensor Name/ID:</MudItem>
+                                <MudItem xs="6">@mySensor.SensorName / <br/>@mySensor.SensorId</MudItem>
+                                <MudItem xs="6">Status:</MudItem>
+                                <MudItem xs="6">@mySensor.Offline.OnlineStatus()</MudItem>
+                                <MudItem xs="6">Battery:</MudItem>
+                                <MudItem xs="6"><MudIcon Icon="@Icons.Material.Filled.BatteryStd"/> @mySensor.BatteryPercentage.ToHumidityDisplay()</MudItem>
+                                <MudItem xs="6">Signal Strength:</MudItem>
+                                <MudItem xs="6"><MudIcon Icon="@Icons.Material.Filled.Wifi"/>  @mySensor.Rssi.ToQuality() (@mySensor.Ssid)</MudItem>
+                                <MudItem xs="6">
+                                    <MudSelect T="string" @bind-Value="durationValue" Class="custom-select-label" @bind-Value:event="oninput" ValueChanged="@(value => OnDurationChanged(value))">
+                                        <MudSelectItem Value="@("today")">Today</MudSelectItem>
+                                        <MudSelectItem Value="@("24_hours")">24 Hours</MudSelectItem>
+                                        <MudSelectItem Value="@("yesterday")">Yesterday</MudSelectItem>
+                                        <MudSelectItem Value="@("last_week")">Last Week</MudSelectItem>
+                                        <MudSelectItem Value="@("7_days")">Last 7 days</MudSelectItem>
+                                        <MudSelectItem Value="@("this_week")">This Week</MudSelectItem>
+                                    </MudSelect>
+                                </MudItem>
+                            </MudGrid>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="12">
+                    <SfChart Title="@($"{mySensor.SensorName} - {dateRange} - {durationValue}")" Width="100%">
+                        <ChartArea><ChartAreaBorder Width="0"></ChartAreaBorder></ChartArea>
+                        <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.DateTime" LabelFormat="MMM dd HH:mm" EdgeLabelPlacement="EdgeLabelPlacement.Shift">
+                            <ChartAxisMajorGridLines Width="0"></ChartAxisMajorGridLines>
+                        </ChartPrimaryXAxis>
+                        <ChartZoomSettings EnableMouseWheelZooming="true" EnablePinchZooming="true" EnableSelectionZooming="true"></ChartZoomSettings>
+                        <ChartPrimaryYAxis Title="Temperature (⁰F) / Humidity (%)" Minimum="0" Maximum="@MaxVal" Interval="4">
+                            <ChartAxisLineStyle Width="0"></ChartAxisLineStyle>
+                            <ChartAxisMajorTickLines Width="0"></ChartAxisMajorTickLines>
+                        </ChartPrimaryYAxis>
+                        <ChartTooltipSettings Enable="true"></ChartTooltipSettings>
+                        <ChartSeriesCollection>
+                            <ChartSeries DataSource="@ChartData" Name="Temperature ⁰F" XName="Period" Width="2" Fill="Red"
+                                         Opacity="0.5" YName="Temperature" TooltipFormat="${point.x} - ${point.y}⁰F" Type="ChartSeriesType.SplineArea">
+                                <ChartMarker Visible="true" Width="7" Height="7" IsFilled="true" Shape="ChartShape.Circle">
+                                </ChartMarker>
+                            </ChartSeries>
+                            <ChartSeries DataSource="@ChartData" Name="Humidity" XName="Period" TooltipFormat="${point.x} - ${point.y}%" Width="2"
+                                         Opacity="0.7" YName="Humidity" Type="ChartSeriesType.SplineArea" Fill="#1e90ff">
+                                <ChartMarker Visible="true" Width="6" IsFilled="true" Height="6" Shape="ChartShape.Diamond">
+                                </ChartMarker>
+                            </ChartSeries>
+                        </ChartSeriesCollection>
+                        <ChartLegendSettings EnableHighlight="true"></ChartLegendSettings>
+                    </SfChart>
+                </MudItem>
+            </MudGrid>
+        </MudContainer>
+    }
+    else
+    {
+        <MudAlert Severity="Severity.Error" Variant="Variant.Filled">No Sensor Found</MudAlert>
+    }
+</div>
+
+@code {
+    SensorData mySensor = null;
+
+    public string durationValue { get; set; } = "24_hours";
+    public double _highTemp = 0;
+    public double _lowTemp = 0;
+    public double _avgTemp = 0;
+    public double _highHumid = 0;
+    public double _lowHumid = 0;
+    public double _avgHumid = 0;
+    public string dateRange = "Last 24 Hours";
+
+    private PersistingComponentStateSubscription _subscription;
+
+    public class LineChartData
+    {
+        public DateTime Period { get; set; }
+        public double Temperature { get; set; }
+        public double Humidity { get; set; }
+    }
+
+    public List<LineChartData> ChartData = new List<LineChartData>();
+    public double MaxVal = 100;
+
+    private async void OnDurationChanged(string duration)
+    {
+        durationValue = duration;
+        await RefreshData();
+    }
+
+    private async Task RefreshData()
+    {
+        ChartData.Clear();
+
+        // create the client
+        var http = new HttpClient();
+        http.DefaultRequestHeaders.Add("X-API-KEY", Configuration["API_KEY"]);
+        var client = new TempStickClient(http);
+
+        // get the sensor info
+        var sensorResponse = await client.GetSensorAsync(Configuration["SENSOR_ID"]);
+        mySensor = sensorResponse.Data;
+
+        // get the data for the chart
+        // we'll assume that since we didn't retrieve from persisted state the sensor data that the other isn't either
+        var data = await client.GetReadingsAsync(Configuration["SENSOR_ID"], 32400, durationValue, null, null);
+
+        foreach (var item in data.Data.Readings)
+        {
+            ChartData.Add(new LineChartData { Period = DateTime.Parse(item.SensorTime), Temperature = item.Temperature.ToFarenheit(), Humidity = item.Humidity }); ;
+        }
+
+        // get some averages for the view
+        _avgTemp = ChartData.Average(x => x.Temperature);
+        _highTemp = ChartData.Max(x => x.Temperature);
+        _lowTemp = ChartData.Min(x => x.Temperature);
+        _avgHumid = ChartData.Average(x => x.Humidity);
+        _highHumid = ChartData.Max(x => x.Humidity);
+        _lowHumid = ChartData.Min(x => x.Humidity);
+
+        MaxVal = Math.Max(_highTemp, _highHumid) + 5;
+
+        DateTime minPeriod = ChartData.Min(x => x.Period);
+        DateTime maxPeriod = ChartData.Max(x => x.Period);
+        dateRange = $"Range {minPeriod.ToString("MMM dd, yyyy")} - {maxPeriod.ToString("MMM dd, yyyy")}";
+
+        StateHasChanged();
+    }
+    protected override async Task OnInitializedAsync()
+    {
+
+        _subscription = ApplicationState.RegisterOnPersisting(PersistData);
+
+        // check for app persisted state and use that if it exists
+        if (!ApplicationState.TryTakeFromJson<SensorData>("SensorData", out var restored))
+        {
+            // we didn't find persisted state so we'll grab it all.
+
+            await RefreshData();
+
+        }
+        else 
+        {
+            // we assume since we got the sensor data from persisted state that the chart data is there too
+            ApplicationState.TryTakeFromJson<List<LineChartData>>("ChartData", out var restoredChartData);
+            mySensor = restored!;
+            ChartData = restoredChartData!;
+        }
+
+        // get some averages for the view
+        _avgTemp = ChartData.Average(x => x.Temperature);
+        _highTemp = ChartData.Max(x => x.Temperature);
+        _lowTemp = ChartData.Min(x => x.Temperature);
+        _avgHumid = ChartData.Average(x => x.Humidity);
+        _highHumid = ChartData.Max(x => x.Humidity);
+        _lowHumid = ChartData.Min(x => x.Humidity);
+
+        MaxVal = Math.Max(_highTemp, _highHumid) + 5;
+
+        DateTime minPeriod = ChartData.Min(x => x.Period);
+        DateTime maxPeriod = ChartData.Max(x => x.Period);
+        dateRange = $"Range {minPeriod.ToString("MMM dd, yyyy")} - {maxPeriod.ToString("MMM dd, yyyy")}";
+
+    }
+
+    private Task PersistData()
+    {
+        ApplicationState.PersistAsJson("SensorData", mySensor);
+        ApplicationState.PersistAsJson("ChartData", ChartData);
+        return Task.CompletedTask;
+    }
+
+    void IDisposable.Dispose()
+    {
+        _subscription.Dispose();
+    }
+}

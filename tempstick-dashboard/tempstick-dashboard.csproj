@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>tempstick_dashboard</RootNamespace>
+    <UserSecretsId>c70bddc6-4e3e-4c62-a2ce-af8c40b4a473</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MudBlazor" Version="6.8.0" />
+    <PackageReference Include="Syncfusion.Blazor.Charts" Version="22.2.8" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="22.2.8" />
+    <PackageReference Include="TimHeuer.TempStickSharp" Version="2.0.22" />
+  </ItemGroup>
+
+</Project>
