@@ -19,16 +19,16 @@ public static class ConverterExtensionMethods
         return $"{Math.Round(humid, 1)}%";
     }
 
-    public static string DisplayDate(this string badDate)
+    public static string DisplayDate(this string badDate, int offset)
     {
         var fixedDate = badDate.Replace("Z", "");
-        return DateTime.Parse(fixedDate).ToString("MMM d, yyyy");
+        return DateTime.Parse(fixedDate).ToUniversalTime().AddSeconds(offset).ToString("MMM d, yyyy");
     }
 
-    public static string DisplayTime(this string badDate)
+    public static string DisplayTime(this string badDate, int offset)
     {
         var fixedDate = badDate.Replace("Z", "");
-        return DateTime.Parse(fixedDate).ToString("hh:mm tt");
+        return DateTime.Parse(fixedDate).ToUniversalTime().AddSeconds(offset).ToString("hh:mm tt");
     }
 
     public static string OnlineStatus(this string isOffline)

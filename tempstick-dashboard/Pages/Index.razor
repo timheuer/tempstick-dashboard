@@ -33,7 +33,7 @@
                                     </MudGrid>
                                 </MudItem>
                                 <MudItem xs="6">
-                                    <MudText Align="Align.Center" Typo="Typo.subtitle1">@mySensor.LastCheckin.DisplayDate()<br />@mySensor.LastCheckin.DisplayTime()</MudText>
+                                    <MudText Align="Align.Center" Typo="Typo.subtitle1">@mySensor.LastCheckin.DisplayDate(offset)<br />@mySensor.LastCheckin.DisplayTime(offset)</MudText>
                                 </MudItem>
                                 <MudItem xs="4">
                                     <MudGrid>
@@ -91,7 +91,7 @@
                                     </MudGrid>
                                 </MudItem>
                                 <MudItem xs="6">
-                                    <MudText Align="Align.Center" Typo="Typo.subtitle1">@mySensor.LastCheckin.DisplayDate()<br />@mySensor.LastCheckin.DisplayTime()</MudText>
+                                    <MudText Align="Align.Center" Typo="Typo.subtitle1">@mySensor.LastCheckin.DisplayDate(offset)<br />@mySensor.LastCheckin.DisplayTime(offset)</MudText>
                                 </MudItem>
                                 <MudItem xs="4">
                                     <MudGrid>
@@ -199,6 +199,8 @@
 @code {
     SensorData mySensor = null;
 
+    int offset = -25200;
+
     public string durationValue { get; set; } = "24_hours";
     public double _highTemp = 0;
     public double _lowTemp = 0;
@@ -241,7 +243,7 @@
 
         // get the data for the chart
         // we'll assume that since we didn't retrieve from persisted state the sensor data that the other isn't either
-        var data = await client.GetReadingsAsync(Configuration["SENSOR_ID"], 32400, durationValue, null, null);
+        var data = await client.GetReadingsAsync(Configuration["SENSOR_ID"], offset, durationValue, null, null);
 
         foreach (var item in data.Data.Readings)
         {

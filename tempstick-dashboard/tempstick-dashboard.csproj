@@ -10,9 +10,9 @@
 
   <ItemGroup>
     <PackageReference Include="MudBlazor" Version="6.8.0" />
-    <PackageReference Include="Syncfusion.Blazor.Charts" Version="22.2.8" />
-    <PackageReference Include="Syncfusion.Blazor.Themes" Version="22.2.8" />
-    <PackageReference Include="TimHeuer.TempStickSharp" Version="2.0.22" />
+    <PackageReference Include="Syncfusion.Blazor.Charts" Version="22.2.9" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="22.2.9" />
+    <PackageReference Include="TimHeuer.TempStickSharp" Version="2.1.10" />
   </ItemGroup>
 
 </Project>
