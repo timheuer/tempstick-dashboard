@@ -233,9 +233,7 @@
         ChartData.Clear();
 
         // create the client
-        var http = new HttpClient();
-        http.DefaultRequestHeaders.Add("X-API-KEY", Configuration["API_KEY"]);
-        var client = new TempStickClient(http);
+        var client = new TempStickClient(Configuration["API_KEY"]);
 
         // get the sensor info
         var sensorResponse = await client.GetSensorAsync(Configuration["SENSOR_ID"]);
@@ -247,7 +245,7 @@
 
         foreach (var item in data.Data.Readings)
         {
-            ChartData.Add(new LineChartData { Period = DateTime.Parse(item.SensorTime), Temperature = item.Temperature.ToFarenheit(), Humidity = item.Humidity }); ;
+            ChartData.Add(new LineChartData { Period = DateTime.ParseExact(item.SensorTime, "yyyy-MM-dd HH:mm:ssK", null, System.Globalization.DateTimeStyles.AssumeUniversal), Temperature = item.Temperature.ToFarenheit(), Humidity = item.Humidity }); ;
         }
 
         // get some averages for the view
