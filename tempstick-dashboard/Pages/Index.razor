@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using TempStick;
 @inject IConfiguration Configuration
+@inject ILogger<Index> Log
 @implements IDisposable
 @inject PersistentComponentState ApplicationState
 
@@ -242,9 +243,12 @@
         // get the data for the chart
         // we'll assume that since we didn't retrieve from persisted state the sensor data that the other isn't either
         var data = await client.GetReadingsAsync(Configuration["SENSOR_ID"], offset, durationValue, null, null);
+        Log.LogInformation($"Offset used: {offset}");
+        Log.LogInformation($"Local timestamp: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ssK")}");
 
         foreach (var item in data.Data.Readings)
         {
+            Log.LogInformation($"SensorTime: {item.SensorTime}");
             ChartData.Add(new LineChartData { Period = DateTime.ParseExact(item.SensorTime, "yyyy-MM-dd HH:mm:ssK", null, System.Globalization.DateTimeStyles.AssumeUniversal), Temperature = item.Temperature.ToFarenheit(), Humidity = item.Humidity }); ;
         }
 

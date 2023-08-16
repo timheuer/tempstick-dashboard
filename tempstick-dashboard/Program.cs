@@ -11,6 +11,9 @@ builder.Services.AddServerSideBlazor();
 builder.Configuration
     .AddUserSecrets("c70bddc6-4e3e-4c62-a2ce-af8c40b4a473")
     .AddEnvironmentVariables();
+builder.Services.AddLogging();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(builder.Configuration["SYNCFUSION_KEY"]);
 
