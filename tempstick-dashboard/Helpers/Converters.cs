@@ -31,9 +31,9 @@ public static class ConverterExtensionMethods
         return DateTime.Parse(fixedDate).ToUniversalTime().AddSeconds(offset).ToString("hh:mm tt");
     }
 
-    public static string OnlineStatus(this string isOffline)
+    public static string OnlineStatus(this bool isOffline)
     {
-        return (isOffline == "1") ? "Offline" : "Online";
+        return (isOffline) ? "Offline" : "Online";
     }
 
     public static string ToQuality(this int dbm)
