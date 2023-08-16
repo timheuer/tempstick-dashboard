@@ -249,7 +249,7 @@
         foreach (var item in data.Data.Readings)
         {
             Log.LogInformation($"SensorTime: {item.SensorTime}");
-            ChartData.Add(new LineChartData { Period = DateTime.ParseExact(item.SensorTime, "yyyy-MM-dd HH:mm:ssK", null, System.Globalization.DateTimeStyles.AssumeUniversal), Temperature = item.Temperature.ToFarenheit(), Humidity = item.Humidity }); ;
+            ChartData.Add(new LineChartData { Period = DateTime.ParseExact(item.SensorTime, "yyyy-MM-dd HH:mm:ssK", null, System.Globalization.DateTimeStyles.AssumeUniversal).AddSeconds(offset), Temperature = item.Temperature.ToFarenheit(), Humidity = item.Humidity }); ;
         }
 
         // get some averages for the view
