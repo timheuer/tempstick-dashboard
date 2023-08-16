@@ -242,7 +242,7 @@
 
         // get the data for the chart
         // we'll assume that since we didn't retrieve from persisted state the sensor data that the other isn't either
-        var data = await client.GetReadingsAsync(Configuration["SENSOR_ID"], offset, durationValue, null, null);
+        var data = await client.GetReadingsAsync(Configuration["SENSOR_ID"], null, durationValue, null, null);
         Log.LogInformation($"Offset used: {offset}");
         Log.LogInformation($"Local timestamp: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ssK")}");
 
