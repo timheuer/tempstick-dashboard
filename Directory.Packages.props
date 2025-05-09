@@ -8,6 +8,6 @@
     <PackageVersion Include="MudBlazor" Version="8.6.0" />
     <PackageVersion Include="Syncfusion.Blazor.Charts" Version="29.1.41" />
     <PackageVersion Include="Syncfusion.Blazor.Themes" Version="29.1.41" />
-    <PackageVersion Include="TempStickSharp" Version="2.2.6" />
+    <PackageVersion Include="TempStickSharp" Version="2.2.9" />
   </ItemGroup>
 </Project>
