@@ -1,0 +1,13 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="MudBlazor" Version="8.6.0" />
+    <PackageVersion Include="Syncfusion.Blazor.Charts" Version="29.1.41" />
+    <PackageVersion Include="Syncfusion.Blazor.Themes" Version="29.1.41" />
+    <PackageVersion Include="TempStickSharp" Version="2.2.6" />
+  </ItemGroup>
+</Project>
