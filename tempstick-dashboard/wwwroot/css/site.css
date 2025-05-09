@@ -69,3 +69,7 @@ a, .btn-link {
 .custom-select-label .mud-select-label {
     color: white; /* Change to your desired color */
 }
+
+.mud-select .mud-select-input {
+    color: white;
+}
